@@ -9,7 +9,11 @@
 
 <dl>
 <dt><a href="#setConfig">setConfig(params)</a></dt>
-<dd></dd>
+<dd><p>Set the API config</p>
+<p>To make authenticated requests you should supply either a username/refreshToken or
+username/password combo.  Then if a JWT doesn&#39;t exist or is expired, the request 
+function will fetch a new JWT before the request is made.</p>
+</dd>
 <dt><a href="#getConfig">getConfig()</a> ⇒ <code>Object</code></dt>
 <dd><p>return config object</p>
 </dd>
@@ -78,11 +82,24 @@ where
 <a name="setConfig"></a>
 
 ## setConfig(params)
+Set the API config
+
+To make authenticated requests you should supply either a username/refreshToken or
+username/password combo.  Then if a JWT doesn't exist or is expired, the request 
+function will fetch a new JWT before the request is made.
+
 **Kind**: global function  
 
 | Param | Description |
 | --- | --- |
 | params | key/value pairs to set |
+| params.host | FIN host ex. http://mydams.org |
+| params.fcBasePath | Fedora base path (default: /fcrepo/rest) |
+| params.jwt | JWT Token |
+| params.refreshToken | refresh token to use if JWT expires |
+| params.username | username to use with refreshToken or password if JWT expires |
+| params.password | password to use if JWT expires |
+| params.transactionToken | custom transaction token |
 
 <a name="getConfig"></a>
 
@@ -115,7 +132,7 @@ Retrieve the content of the resource
 | options.path | <code>String</code> | resource path |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="head"></a>
 
@@ -131,7 +148,7 @@ Retrieve HTTP headers of the resource
 | options.path | <code>String</code> | resource path |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="create"></a>
 
@@ -149,7 +166,7 @@ Create new resources within a LDP container
 | options.file | <code>Object</code> | (optional) path to file to upload |
 | options.content | <code>Object</code> | (optional) content to upload |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
 <a name="update"></a>
@@ -170,7 +187,7 @@ with a resource with the triples provided in the request body.
 | options.content | <code>Object</code> | (optional) content to upload |
 | options.partial | <code>Object</code> | (optional) only partial update happening, sets Prefer header to handling=lenient; received="minimal" |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
 <a name="patch"></a>
@@ -189,7 +206,7 @@ Sparql base update
 | options.file | <code>Object</code> | (optional) path to file to upload |
 | options.content | <code>Object</code> | (optional) content to upload |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
 <a name="remove"></a>
@@ -207,7 +224,7 @@ Delete a resource
 | options.permanent | <code>Boolean</code> | remove /fcr:tombstone as well |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
 <a name="copy"></a>
@@ -224,7 +241,7 @@ Copy a resource (and its subtree) to a new location
 | options.destination | <code>Boolean</code> | path to copy resource to |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
 <a name="startTransaction"></a>
@@ -239,7 +256,7 @@ Start a new transaction, returns transation token.
 | --- | --- | --- |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="commitTransaction"></a>
 
@@ -253,7 +270,7 @@ Commit transation
 | --- | --- | --- |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
 <a name="rollbackTransaction"></a>
@@ -268,7 +285,7 @@ Rollback transation
 | --- | --- | --- |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
 <a name="getVersions"></a>
@@ -283,7 +300,7 @@ Get a current version
 | --- | --- | --- |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
-| options.basePath | <code>String</code> | (optional) override config.basePath |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="getVersion"></a>
 
