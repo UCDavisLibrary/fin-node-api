@@ -26,17 +26,17 @@ function will fetch a new JWT before the request is made.</p>
 <dt><a href="#head">head(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Retrieve HTTP headers of the resource</p>
 </dd>
-<dt><a href="#create">create(options)</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#post">post(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Create new resources within a LDP container</p>
 </dd>
-<dt><a href="#update">update(options)</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#put">put(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Create a resource with a specified path, or replace the triples associated 
 with a resource with the triples provided in the request body.</p>
 </dd>
 <dt><a href="#patch">patch(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Sparql base update</p>
 </dd>
-<dt><a href="#remove">remove(options)</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#delete">delete(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Delete a resource</p>
 </dd>
 <dt><a href="#copy">copy()</a> ⇒ <code>Promise</code></dt>
@@ -150,9 +150,9 @@ Retrieve HTTP headers of the resource
 | options.host | <code>String</code> | (optional) override config.host |
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
-<a name="create"></a>
+<a name="post"></a>
 
-## create(options) ⇒ <code>Promise</code>
+## post(options) ⇒ <code>Promise</code>
 Create new resources within a LDP container
 
 **Kind**: global function  
@@ -169,9 +169,9 @@ Create new resources within a LDP container
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
-<a name="update"></a>
+<a name="put"></a>
 
-## update(options) ⇒ <code>Promise</code>
+## put(options) ⇒ <code>Promise</code>
 Create a resource with a specified path, or replace the triples associated 
 with a resource with the triples provided in the request body.
 
@@ -209,9 +209,9 @@ Sparql base update
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 | options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
 
-<a name="remove"></a>
+<a name="delete"></a>
 
-## remove(options) ⇒ <code>Promise</code>
+## delete(options) ⇒ <code>Promise</code>
 Delete a resource
 
 **Kind**: global function  
@@ -250,7 +250,7 @@ Copy a resource (and its subtree) to a new location
 Start a new transaction, returns transation token.
 
 **Kind**: global function  
-**Returns**: <code>Promise</code> - {String} transaction token  
+**Returns**: <code>Promise</code> - {response, body, authenticated, transactionToken}  
 
 | Param | Type | Description |
 | --- | --- | --- |
