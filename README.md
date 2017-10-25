@@ -2,9 +2,7 @@
 
 <dl>
 <dt><a href="#FinApi">FinApi</a></dt>
-<dd><p>FinApi</p>
-<p>FIN API class</p>
-</dd>
+<dd></dd>
 </dl>
 
 ## Functions
@@ -12,43 +10,35 @@
 <dl>
 <dt><a href="#setConfig">setConfig(params)</a></dt>
 <dd></dd>
-<dt><a href="#getConfig">getConfig()</a></dt>
+<dt><a href="#getConfig">getConfig()</a> ⇒ <code>Object</code></dt>
 <dd><p>return config object</p>
 </dd>
-<dt><a href="#createUrl">createUrl(options)</a></dt>
-<dd><p>Create the url for fedora request.</p>
-</dd>
-<dt><a href="#extensionHelper">extensionHelper(options)</a></dt>
-<dd><p>If a file is provided on the request, look at the extension,
-if it is of a known rdf type, set the content type for the request.</p>
-<p>If the content-type header is already set, no operation is performed.</p>
-</dd>
-<dt><a href="#isSuccess">isSuccess(response)</a></dt>
+<dt><a href="#isSuccess">isSuccess(response)</a> ⇒ <code>Boolean</code></dt>
 <dd><p>Given a HTTP response see if response is in 200 range</p>
 </dd>
-<dt><a href="#get">get(options)</a></dt>
+<dt><a href="#get">get(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Retrieve the content of the resource</p>
 </dd>
-<dt><a href="#head">head(options)</a></dt>
+<dt><a href="#head">head(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Retrieve HTTP headers of the resource</p>
 </dd>
-<dt><a href="#create">create(options)</a></dt>
+<dt><a href="#create">create(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Create new resources within a LDP container</p>
 </dd>
-<dt><a href="#update">update(options)</a></dt>
+<dt><a href="#update">update(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Create a resource with a specified path, or replace the triples associated 
 with a resource with the triples provided in the request body.</p>
 </dd>
-<dt><a href="#patch">patch(options)</a></dt>
+<dt><a href="#patch">patch(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Sparql base update</p>
 </dd>
-<dt><a href="#remove">remove(options)</a></dt>
+<dt><a href="#remove">remove(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Delete a resource</p>
 </dd>
-<dt><a href="#copy">copy()</a></dt>
+<dt><a href="#copy">copy()</a> ⇒ <code>Promise</code></dt>
 <dd><p>Copy a resource (and its subtree) to a new location</p>
 </dd>
-<dt><a href="#startTransaction">startTransaction()</a> ⇒ <code>String</code></dt>
+<dt><a href="#startTransaction">startTransaction()</a> ⇒ <code>Promise</code></dt>
 <dd><p>Start a new transaction, returns transation token.</p>
 </dd>
 <dt><a href="#commitTransaction">commitTransaction()</a> ⇒ <code>Promise</code></dt>
@@ -60,71 +50,49 @@ with a resource with the triples provided in the request body.</p>
 <dt><a href="#getVersions">getVersions()</a> ⇒ <code>Promise</code></dt>
 <dd><p>Get a current version</p>
 </dd>
-<dt><a href="#getVersion">getVersion(options)</a></dt>
+<dt><a href="#getVersion">getVersion(options)</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
-<dt><a href="#createVersion">createVersion(options)</a></dt>
+<dt><a href="#createVersion">createVersion(options)</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
-<dt><a href="#revertToVersion">revertToVersion(options)</a></dt>
+<dt><a href="#revertToVersion">revertToVersion(options)</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
-<dt><a href="#deleteVersion">deleteVersion(options)</a></dt>
+<dt><a href="#deleteVersion">deleteVersion(options)</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
 </dl>
 
 <a name="FinApi"></a>
 
 ## FinApi
-FinApi
+**Kind**: global class  
+<a name="new_FinApi_new"></a>
 
+### new FinApi()
 FIN API class
 
-**Kind**: global class  
+Many classes return a promise with a object that looks like {response, body, authenticated}
+where
+ - response: HTTP response object
+ - body: HTTP body contents
+ - authenticated: boolean flag if a JWT token was sent along with the request
+
 <a name="setConfig"></a>
 
 ## setConfig(params)
 **Kind**: global function  
 
-| Param |
-| --- |
-| params | 
+| Param | Description |
+| --- | --- |
+| params | key/value pairs to set |
 
 <a name="getConfig"></a>
 
-## getConfig()
+## getConfig() ⇒ <code>Object</code>
 return config object
 
 **Kind**: global function  
-<a name="createUrl"></a>
-
-## createUrl(options)
-Create the url for fedora request.
-
-**Kind**: global function  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>Object</code> | arguments |
-| options.path | <code>String</code> | url path |
-| options.host | <code>String</code> | override config.host |
-| options.basePath | <code>String</code> | override config.basePath |
-| options.transactionToken | <code>String</code> | override config.transactionToken |
-
-<a name="extensionHelper"></a>
-
-## extensionHelper(options)
-If a file is provided on the request, look at the extension,
-if it is of a known rdf type, set the content type for the request.
-
-If the content-type header is already set, no operation is performed.
-
-**Kind**: global function  
-
-| Param | Type |
-| --- | --- |
-| options | <code>Object</code> | 
-
 <a name="isSuccess"></a>
 
-## isSuccess(response)
+## isSuccess(response) ⇒ <code>Boolean</code>
 Given a HTTP response see if response is in 200 range
 
 **Kind**: global function  
@@ -135,10 +103,11 @@ Given a HTTP response see if response is in 200 range
 
 <a name="get"></a>
 
-## get(options)
+## get(options) ⇒ <code>Promise</code>
 Retrieve the content of the resource
 
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -150,10 +119,11 @@ Retrieve the content of the resource
 
 <a name="head"></a>
 
-## head(options)
+## head(options) ⇒ <code>Promise</code>
 Retrieve HTTP headers of the resource
 
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -165,10 +135,11 @@ Retrieve HTTP headers of the resource
 
 <a name="create"></a>
 
-## create(options)
+## create(options) ⇒ <code>Promise</code>
 Create new resources within a LDP container
 
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -183,11 +154,12 @@ Create new resources within a LDP container
 
 <a name="update"></a>
 
-## update(options)
+## update(options) ⇒ <code>Promise</code>
 Create a resource with a specified path, or replace the triples associated 
 with a resource with the triples provided in the request body.
 
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -203,10 +175,11 @@ with a resource with the triples provided in the request body.
 
 <a name="patch"></a>
 
-## patch(options)
+## patch(options) ⇒ <code>Promise</code>
 Sparql base update
 
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -221,10 +194,11 @@ Sparql base update
 
 <a name="remove"></a>
 
-## remove(options)
+## remove(options) ⇒ <code>Promise</code>
 Delete a resource
 
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -238,10 +212,11 @@ Delete a resource
 
 <a name="copy"></a>
 
-## copy()
+## copy() ⇒ <code>Promise</code>
 Copy a resource (and its subtree) to a new location
 
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -254,11 +229,11 @@ Copy a resource (and its subtree) to a new location
 
 <a name="startTransaction"></a>
 
-## startTransaction() ⇒ <code>String</code>
+## startTransaction() ⇒ <code>Promise</code>
 Start a new transaction, returns transation token.
 
 **Kind**: global function  
-**Returns**: <code>String</code> - transaction token  
+**Returns**: <code>Promise</code> - {String} transaction token  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -272,7 +247,7 @@ Start a new transaction, returns transation token.
 Commit transation
 
 **Kind**: global function  
-**Returns**: <code>Promise</code> - transaction token  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -287,7 +262,7 @@ Commit transation
 Rollback transation
 
 **Kind**: global function  
-**Returns**: <code>Promise</code> - - response, body  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -302,7 +277,7 @@ Rollback transation
 Get a current version
 
 **Kind**: global function  
-**Returns**: <code>Promise</code> - - response, body  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -312,8 +287,9 @@ Get a current version
 
 <a name="getVersion"></a>
 
-## getVersion(options)
+## getVersion(options) ⇒ <code>Promise</code>
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type |
 | --- | --- |
@@ -321,8 +297,9 @@ Get a current version
 
 <a name="createVersion"></a>
 
-## createVersion(options)
+## createVersion(options) ⇒ <code>Promise</code>
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type |
 | --- | --- |
@@ -330,8 +307,9 @@ Get a current version
 
 <a name="revertToVersion"></a>
 
-## revertToVersion(options)
+## revertToVersion(options) ⇒ <code>Promise</code>
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type |
 | --- | --- |
@@ -339,8 +317,9 @@ Get a current version
 
 <a name="deleteVersion"></a>
 
-## deleteVersion(options)
+## deleteVersion(options) ⇒ <code>Promise</code>
 **Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
 
 | Param | Type |
 | --- | --- |
