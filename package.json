@@ -1,0 +1,33 @@
+{
+  "name": "fin-node-api",
+  "version": "0.0.1",
+  "description": "NodeJS API for interacting with the FIN Fedora instance",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-docs": "jsdoc2md --configure jsdoc.json lib/api.js > README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UCDavisLibrary/fin-node-api.git"
+  },
+  "author": "jrmerz@ucdavis.edu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UCDavisLibrary/fin-node-api/issues"
+  },
+  "homepage": "https://github.com/UCDavisLibrary/fin-node-api#readme",
+  "dependencies": {
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "jsdoc-babel": "^0.3.0",
+    "jsdoc-to-markdown": "^3.0.0"
+  }
+}
