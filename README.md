@@ -59,19 +59,19 @@ with a resource with the triples provided in the request body.</p>
 <dt><a href="#delete">delete(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Delete a resource</p>
 </dd>
-<dt><a href="#copy">copy()</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#copy">copy(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Copy a resource (and its subtree) to a new location</p>
 </dd>
-<dt><a href="#startTransaction">startTransaction()</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#startTransaction">startTransaction(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Start a new transaction, returns transation token.</p>
 </dd>
-<dt><a href="#commitTransaction">commitTransaction()</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#commitTransaction">commitTransaction(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Commit transation</p>
 </dd>
-<dt><a href="#rollbackTransaction">rollbackTransaction()</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#rollbackTransaction">rollbackTransaction(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Rollback transation</p>
 </dd>
-<dt><a href="#getVersions">getVersions()</a> ⇒ <code>Promise</code></dt>
+<dt><a href="#getVersions">getVersions(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Get a current version</p>
 </dd>
 <dt><a href="#getVersion">getVersion(options)</a> ⇒ <code>Promise</code></dt>
@@ -279,7 +279,7 @@ Delete a resource
 
 <a name="copy"></a>
 
-## copy() ⇒ <code>Promise</code>
+## copy(options) ⇒ <code>Promise</code>
 Copy a resource (and its subtree) to a new location
 
 **Kind**: global function  
@@ -287,6 +287,7 @@ Copy a resource (and its subtree) to a new location
 
 | Param | Type | Description |
 | --- | --- | --- |
+| options | <code>Object</code> | arguments |
 | options.path | <code>String</code> | resource path |
 | options.destination | <code>Boolean</code> | path to copy resource to |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
@@ -296,7 +297,7 @@ Copy a resource (and its subtree) to a new location
 
 <a name="startTransaction"></a>
 
-## startTransaction() ⇒ <code>Promise</code>
+## startTransaction(options) ⇒ <code>Promise</code>
 Start a new transaction, returns transation token.
 
 **Kind**: global function  
@@ -304,13 +305,14 @@ Start a new transaction, returns transation token.
 
 | Param | Type | Description |
 | --- | --- | --- |
+| options | <code>Object</code> | arguments |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="commitTransaction"></a>
 
-## commitTransaction() ⇒ <code>Promise</code>
+## commitTransaction(options) ⇒ <code>Promise</code>
 Commit transation
 
 **Kind**: global function  
@@ -318,6 +320,7 @@ Commit transation
 
 | Param | Type | Description |
 | --- | --- | --- |
+| options | <code>Object</code> | arguments |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
@@ -325,7 +328,7 @@ Commit transation
 
 <a name="rollbackTransaction"></a>
 
-## rollbackTransaction() ⇒ <code>Promise</code>
+## rollbackTransaction(options) ⇒ <code>Promise</code>
 Rollback transation
 
 **Kind**: global function  
@@ -333,6 +336,7 @@ Rollback transation
 
 | Param | Type | Description |
 | --- | --- | --- |
+| options | <code>Object</code> | arguments |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
@@ -340,7 +344,7 @@ Rollback transation
 
 <a name="getVersions"></a>
 
-## getVersions() ⇒ <code>Promise</code>
+## getVersions(options) ⇒ <code>Promise</code>
 Get a current version
 
 **Kind**: global function  
@@ -348,6 +352,7 @@ Get a current version
 
 | Param | Type | Description |
 | --- | --- | --- |
+| options | <code>Object</code> |  |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
@@ -358,9 +363,13 @@ Get a current version
 **Kind**: global function  
 **Returns**: <code>Promise</code> - {response, body, authenticated}  
 
-| Param | Type |
-| --- | --- |
-| options | <code>\*</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| options.versionName | <code>String</code> | version to get |
+| options.headers | <code>Object</code> | resource headers, key/value pairs |
+| options.host | <code>String</code> | (optional) override config.host |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="createVersion"></a>
 
@@ -368,9 +377,13 @@ Get a current version
 **Kind**: global function  
 **Returns**: <code>Promise</code> - {response, body, authenticated}  
 
-| Param | Type |
-| --- | --- |
-| options | <code>\*</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| options.versionName | <code>String</code> | version to create |
+| options.headers | <code>Object</code> | resource headers, key/value pairs |
+| options.host | <code>String</code> | (optional) override config.host |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="revertToVersion"></a>
 
@@ -378,9 +391,13 @@ Get a current version
 **Kind**: global function  
 **Returns**: <code>Promise</code> - {response, body, authenticated}  
 
-| Param | Type |
-| --- | --- |
-| options | <code>\*</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| options.versionName | <code>String</code> | version name to revert to |
+| options.headers | <code>Object</code> | resource headers, key/value pairs |
+| options.host | <code>String</code> | (optional) override config.host |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
 <a name="deleteVersion"></a>
 
@@ -388,7 +405,11 @@ Get a current version
 **Kind**: global function  
 **Returns**: <code>Promise</code> - {response, body, authenticated}  
 
-| Param | Type |
-| --- | --- |
-| options | <code>\*</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> |  |
+| options.versionName | <code>String</code> | version to delete |
+| options.headers | <code>Object</code> | resource headers, key/value pairs |
+| options.host | <code>String</code> | (optional) override config.host |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
 
