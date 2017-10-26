@@ -5,6 +5,26 @@
 <dd></dd>
 </dl>
 
+## Members
+
+<dl>
+<dt><a href="#RDF_FORMATS">RDF_FORMATS</a> : <code>Object</code></dt>
+<dd><p>JSON_LD: application/ld+json<br />N_TRIPLES: application/n-triples<br />RDF_XML: application/rdf+xml<br />SPARQL_UPDATE: application/sparql-update<br />N3: text/n3<br />PLAIN: text/plain<br />TURTLE: text/turtle</p>
+</dd>
+<dt><a href="#FILE_EXTENSIONS">FILE_EXTENSIONS</a> : <code>Object</code></dt>
+<dd><p>.json: application/ld+json<br />.nt: application/n-triples<br />.xml: application/rdf+xml<br />.n3: text/n3<br />.txt: text/plain<br />.ttl: text/turtle</p>
+</dd>
+<dt><a href="#GET_JSON_ACCEPT">GET_JSON_ACCEPT</a> : <code>Object</code></dt>
+<dd><p>Optional Accept HTTP header values for GET request of Content-Type=application/ld+json</p>
+</dd>
+<dt><a href="#GET_PREFER">GET_PREFER</a> : <code>Object</code></dt>
+<dd><p>Optional Prefer HTTP header values for GET request</p>
+</dd>
+<dt><a href="#PUT_PEFER">PUT_PEFER</a> : <code>Object</code></dt>
+<dd><p>Optional Prefer HTTP header values for PUT request.Allows replacing the properties of a container without having to provide all of the server-managed triples.</p>
+</dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -79,6 +99,36 @@ where
  - body: HTTP body contents
  - authenticated: boolean flag if a JWT token was sent along with the request
 
+<a name="RDF_FORMATS"></a>
+
+## RDF_FORMATS : <code>Object</code>
+JSON_LD: application/ld+json<br />N_TRIPLES: application/n-triples<br />RDF_XML: application/rdf+xml<br />SPARQL_UPDATE: application/sparql-update<br />N3: text/n3<br />PLAIN: text/plain<br />TURTLE: text/turtle
+
+**Kind**: global variable  
+<a name="FILE_EXTENSIONS"></a>
+
+## FILE_EXTENSIONS : <code>Object</code>
+.json: application/ld+json<br />.nt: application/n-triples<br />.xml: application/rdf+xml<br />.n3: text/n3<br />.txt: text/plain<br />.ttl: text/turtle
+
+**Kind**: global variable  
+<a name="GET_JSON_ACCEPT"></a>
+
+## GET_JSON_ACCEPT : <code>Object</code>
+Optional Accept HTTP header values for GET request of Content-Type=application/ld+json
+
+**Kind**: global variable  
+<a name="GET_PREFER"></a>
+
+## GET_PREFER : <code>Object</code>
+Optional Prefer HTTP header values for GET request
+
+**Kind**: global variable  
+<a name="PUT_PEFER"></a>
+
+## PUT_PEFER : <code>Object</code>
+Optional Prefer HTTP header values for PUT request.Allows replacing the properties of a container without having to provide all of the server-managed triples.
+
+**Kind**: global variable  
 <a name="setConfig"></a>
 
 ## setConfig(params)
