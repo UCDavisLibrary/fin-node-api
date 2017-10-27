@@ -62,6 +62,9 @@ with a resource with the triples provided in the request body.</p>
 <dt><a href="#copy">copy(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Copy a resource (and its subtree) to a new location</p>
 </dd>
+<dt><a href="#move">move(options)</a> ⇒ <code>Promise</code></dt>
+<dd><p>Move a resource (and its subtree) to a new location</p>
+</dd>
 <dt><a href="#startTransaction">startTransaction(options)</a> ⇒ <code>Promise</code></dt>
 <dd><p>Start a new transaction, returns transation token.</p>
 </dd>
@@ -290,6 +293,24 @@ Copy a resource (and its subtree) to a new location
 | options | <code>Object</code> | arguments |
 | options.path | <code>String</code> | resource path |
 | options.destination | <code>Boolean</code> | path to copy resource to |
+| options.headers | <code>Object</code> | resource headers, key/value pairs |
+| options.host | <code>String</code> | (optional) override config.host |
+| options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
+| options.transactionToken | <code>String</code> | (optional) override config.transactionToken |
+
+<a name="move"></a>
+
+## move(options) ⇒ <code>Promise</code>
+Move a resource (and its subtree) to a new location
+
+**Kind**: global function  
+**Returns**: <code>Promise</code> - {response, body, authenticated}  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>Object</code> | arguments |
+| options.path | <code>String</code> | resource path |
+| options.destination | <code>Boolean</code> | path to move resource to |
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
