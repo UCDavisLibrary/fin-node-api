@@ -36,6 +36,14 @@ describe('ACL', function() {
     assert.equal(response, '/integration-test/.acl');
   });
 
+  it('Should let you get all ACL authorizations', async function() {
+    // let response = await API.acl.allACLAuthorizations({path:'/.acl'});
+    // console.log(response);
+
+    response = await API.acl.authorizations({path:'/user'});
+    console.log(response);
+  });
+
   it('Should let you remove acl integration test containers', async function(){
     // remove integration test containers
     try {

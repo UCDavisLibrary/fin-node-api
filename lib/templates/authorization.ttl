@@ -1,0 +1,9 @@
+@prefix webac:  <http://www.w3.org/ns/auth/acl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+<>
+  rdf:type webac:Authorization ;
+  rdfs:label  "{{label}}";
+  webac:accessTo <{{authorizationPath}}> ;
+  webac:agent {{agent}} ;
+  {{modes}}
