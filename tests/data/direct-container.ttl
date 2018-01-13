@@ -4,6 +4,9 @@
 @prefix pcdm: <http://pcdm.org/models#> .
 
 <>
-  dc:title "Basic Child {{childnum}}";
+  dc:title "Direct Child {{childnum}}";
   dc:description "a child container for tests.  child number {{childnum}}";
-  rdf:type ldp:BasicContainer;
+  rdf:type ldp:DirectContainer;
+  ldp:hasMemberRelation pcdm:hasMember;
+  ldp:isMemberOfRelation pcdm:memberOf;
+  ldp:membershipResource <{{memberOf}}>;

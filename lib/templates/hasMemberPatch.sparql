@@ -1,0 +1,9 @@
+PREFIX webacl: <http://www.w3.org/ns/auth/acl#>
+PREFIX pcdm: <http://pcdm.org/models#>
+
+DELETE { }
+INSERT { 
+  <> pcdm:hasMember <{{member}}>
+}
+WHERE { }
+ 

@@ -4,13 +4,21 @@ const API = require('../..');
 const path = require('path');
 
 let count = 0;
-let child = fs.readFileSync(path.join(__dirname, '..', 'data', 'child-container.ttl'), 'utf-8');
+let basicChild = fs.readFileSync(path.join(__dirname, '..', 'data', 'child-container.ttl'), 'utf-8');
+let directChild = fs.readFileSync(path.join(__dirname, '..', 'data', 'direct-container.ttl'), 'utf-8');
+
 
 module.exports = (HOST, USERS) => {
   return {
-    getChild : function() {
+    getChild : function(memberOf) {
       count++;
-      return child.replace(/{{childnum}}/g, count);
+
+      if( memberOf ) {
+        return directChild.replace(/{{childnum}}/g, count)
+                          .replace(/{{memberOf}}/, `/fcrepo/rest${memberOf}`);
+      } else {
+        return basicChild.replace(/{{childnum}}/g, count);
+      }
     },
 
     getRoot : function() {
@@ -32,10 +40,14 @@ module.exports = (HOST, USERS) => {
       response = await this.createContainer('/child1');
       assert.equal(response.response.statusCode, 201);
     
-      response = await this.createContainer('/child2');
+      // direct container
+      response = await this.createContainer('/child2', '/integration-test');
       assert.equal(response.response.statusCode, 201);
     
       response = await this.createContainer('/child2/child3');
+      assert.equal(response.response.statusCode, 201);
+
+      response = await this.createContainer('/child1/child4');
       assert.equal(response.response.statusCode, 201);
     },
 
@@ -56,14 +68,14 @@ module.exports = (HOST, USERS) => {
       assert.equal(response.response.statusCode, 204);
     },
 
-    createContainer: function(path = '') {
+    createContainer: function(path = '', memberOf = '') {
       return API.post({
         path : '/',
         headers : {
           'Content-Type' : API.RDF_FORMATS.TURTLE,
           Slug : 'integration-test' + path
         },
-        content : path ? this.getChild() : this.getRoot()
+        content : path ? this.getChild(memberOf) : this.getRoot()
       });
     }
   }
