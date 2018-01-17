@@ -39,7 +39,7 @@ describe('ACL', function() {
 
   it('Should let you create an authorization for alice', async function(){
     let response = await API.acl.add({
-      path : '/integration-test/child1',
+      path : '/integration-test/child2',
       agent : 'alice',
       modes : [API.acl.MODES.READ]
     });
@@ -49,22 +49,22 @@ describe('ACL', function() {
   it('Should let you get all ACL authorizations, have new alice read auth', async function() {
     let response = await API.acl.allACLAuthorizations({path:'/integration-test/.acl'});
 
-    let c1 = response['/integration-test/child1'];
+    let c1 = response['/integration-test/child2'];
     assert.equal(typeof c1, 'object');
     // assert.equal(c1.__defs__.indexOf('/integration-test/.acl/u-alice-r') > -1, true);
     assert.equal(c1.authorization.alice[API.acl.MODES.READ], true);
   });
 
-  it('Should let alice read child1 and not read child2/child3/child4', async function(){
+  it('Should let alice read child2 and not read child1/child3/child4', async function(){
     API.setConfig({jwt: ALICE});
 
-    let response = await API.get({path: '/integration-test/child1'});
+    let response = await API.get({path: '/integration-test/child2'});
     assert.equal(response.response.statusCode, 200);
 
     response = await API.get({path: '/integration-test/child4'});
     assert.equal(response.response.statusCode, 403);
 
-    response = await API.get({path: '/integration-test/child2'});
+    response = await API.get({path: '/integration-test/child1'});
     assert.equal(response.response.statusCode, 403);
 
     response = await API.get({path: '/integration-test/child2/child3'});
@@ -81,10 +81,10 @@ describe('ACL', function() {
     });
     assert.equal(response.response.statusCode, 201);
 
-    response = await API.acl.authorizations({path:'/integration-test/child1'});
+    response = await API.acl.authorizations({path:'/integration-test/child2'});
     assert.equal(response.authorization.alice[API.acl.MODES.READ], true);
     assert.equal(response.authorization.alice[API.acl.MODES.WRITE], true);
-    assert.equal(typeof response.authorizations['/integration-test/.acl/u/alice/integration-test/child1/r'], 'object');
+    assert.equal(typeof response.authorizations['/integration-test/.acl/u/alice/integration-test/child2/r'], 'object');
     assert.equal(typeof response.authorizations['/integration-test/.acl/u/alice/integration-test/w'], 'object');
   
   
