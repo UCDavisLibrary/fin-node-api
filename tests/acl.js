@@ -15,7 +15,6 @@ API.setConfig({host: HOST});
 
 describe('ACL', function() {
   
-  
   it('Should let you create ACL container', async function(){
     this.timeout(5000);
 
@@ -166,7 +165,8 @@ describe('ACL', function() {
 
     response = await API.get({path: '/integration-test/child2'});
     assert.equal(response.response.statusCode, 403);
-  })
+
+  });
 
   // it('Should let you remove acl integration test containers', async function(){
   //   // remove integration test containers
