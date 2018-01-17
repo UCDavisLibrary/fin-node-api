@@ -7,6 +7,7 @@ let count = 0;
 let basicChild = fs.readFileSync(path.join(__dirname, '..', 'data', 'child-container.ttl'), 'utf-8');
 let directChild = fs.readFileSync(path.join(__dirname, '..', 'data', 'direct-container.ttl'), 'utf-8');
 
+const TEST_CONTAINER_ROOT = '/integration-test'
 
 module.exports = (HOST, USERS) => {
   return {
@@ -30,24 +31,39 @@ module.exports = (HOST, USERS) => {
     //   -> child1
     //   -> child2
     //     -> child3
+    //   -> child4
+    //     -> child5
+    //       -> child6 
     createBasicSetup : async function() {
       API.setConfig({jwt: USERS.ADMIN});
 
+      let response = await API.get({path: TEST_CONTAINER_ROOT});
+      if( response.response.statusCode === 200 ) {
+        await this.cleanTests();
+      }
+
       // create parent/child containers for setting access
-      let response = await this.createContainer();
+      response = await this.createContainer();
       assert.equal(response.response.statusCode, 201);
     
-      response = await this.createContainer('/child1');
+      response = await this.createContainer('child1');
       assert.equal(response.response.statusCode, 201);
     
       // direct container
-      response = await this.createContainer('/child2', '/integration-test');
+      // response = await this.createContainer('/child2', '/integration-test');
+      response = await this.createContainer('child2');
       assert.equal(response.response.statusCode, 201);
     
-      response = await this.createContainer('/child2/child3');
+      response = await this.createContainer('child2/child3');
       assert.equal(response.response.statusCode, 201);
 
-      response = await this.createContainer('/child1/child4');
+      response = await this.createContainer('child1/child4');
+      assert.equal(response.response.statusCode, 201);
+
+      response = await this.createContainer('child1/child4/child5');
+      assert.equal(response.response.statusCode, 201);
+
+      response = await this.createContainer('child1/child4/child5/child6');
       assert.equal(response.response.statusCode, 201);
     },
 
@@ -56,13 +72,13 @@ module.exports = (HOST, USERS) => {
 
       // remove integration test containers
       response = await API.delete({
-        path : '/integration-test',
+        path : TEST_CONTAINER_ROOT,
         host : HOST
       });
       assert.equal(response.response.statusCode, 204);
     
       response = await API.delete({
-        path : '/integration-test/fcr:tombstone',
+        path : TEST_CONTAINER_ROOT + '/fcr:tombstone',
         host : HOST
       });
       assert.equal(response.response.statusCode, 204);
@@ -70,10 +86,10 @@ module.exports = (HOST, USERS) => {
 
     createContainer: function(path = '', memberOf = '') {
       return API.post({
-        path : '/',
+        path : path ? TEST_CONTAINER_ROOT : '/',
         headers : {
           'Content-Type' : API.RDF_FORMATS.TURTLE,
-          Slug : 'integration-test' + path
+          Slug : path ? path : TEST_CONTAINER_ROOT.replace(/^\//, '')
         },
         content : path ? this.getChild(memberOf) : this.getRoot()
       });
