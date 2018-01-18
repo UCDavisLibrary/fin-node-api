@@ -113,4 +113,8 @@ describe('ACL - Multiple ACL test', function() {
     assert.equal(response.response.statusCode, 403);
   });
 
+  it('Should let you remove acl integration test containers', async function(){
+    await containerUtils.cleanTests();
+  });
+
 });
