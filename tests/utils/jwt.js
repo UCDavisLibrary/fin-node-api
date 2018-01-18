@@ -16,6 +16,11 @@ module.exports = {
         expiresIn: parseInt(secrets.jwt.ttl)
       }
     );
-
+  },
+  createUsers() {
+    const ADMIN = this.mint('integration-test-admin', true);
+    const ALICE = this.mint('alice');
+    const BOB = this.mint('bob');
+    return {ADMIN, ALICE, BOB};
   }
 }
