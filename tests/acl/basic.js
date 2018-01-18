@@ -79,7 +79,7 @@ describe('ACL - Basic Tests', function() {
     assert.equal(response.authorization.alice[API.acl.MODES.WRITE], undefined);
     assert.equal(typeof response.authorizations[containerUtils.TEST_CONTAINER_ROOT+'/.acl/u/alice/integration-test/child2/r'], 'object');
     assert.equal(typeof response.authorizations[containerUtils.TEST_CONTAINER_ROOT+'/.acl/u/alice/integration-test/r'], 'object');
-  
+    assert.deepEqual(response.definedAt, [containerUtils.TEST_CONTAINER_ROOT+'/.acl']);
   
     API.setConfig({jwt: ALICE});
 
@@ -116,6 +116,10 @@ describe('ACL - Basic Tests', function() {
     
     response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
     assert.equal(response.response.statusCode, 200);
+  });
+
+  it('Should let you remove acl integration test containers', async function(){
+    await containerUtils.cleanTests();
   });
 
 });

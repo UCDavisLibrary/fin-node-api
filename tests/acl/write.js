@@ -147,8 +147,8 @@ describe('ACL - Write Test', function() {
     assert.equal(response.statusCode, 201);
   });
 
-  // it('Should let you remove acl integration test containers', async function(){
-  //   await containerUtils.cleanTests();
-  // });
+  it('Should let you remove acl integration test containers', async function(){
+    await containerUtils.cleanTests();
+  });
 
 });
