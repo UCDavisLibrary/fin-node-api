@@ -1,0 +1,10 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix fin: <http://library.ucdavis.edu/fin-server#> .
+
+<>
+  dc:title  "{{name}}" ;
+  dc:description  "{{description}}" ;
+  rdf:type fin:Service ;
+  rdf:type fin:{{type}} ;
+  {{payload}}
