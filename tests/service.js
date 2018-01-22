@@ -29,7 +29,7 @@ describe('Service Tests', function() {
       name : 'Test Proxy Service',
       description : 'This is a test of a service',
       type : API.service.TYPES.PROXY,
-      urlTemplate : 'http://localhost:8080{{fcPath}}{{extPath}}'
+      urlTemplate : 'http://localhost:8080{{fcPath}}{{svcPath}}'
     });
     assert.equal(response.statusCode, 201);
 
@@ -41,7 +41,7 @@ describe('Service Tests', function() {
 
     assert.equal(
       body['http://library.ucdavis.edu/fin-server#urlTemplate'][0]['@value'],
-      'http://localhost:8080{{fcPath}}{{extPath}}'
+      'http://localhost:8080{{fcPath}}{{svcPath}}'
     );
   });
 
@@ -56,6 +56,11 @@ describe('Service Tests', function() {
       }
     });
     assert.equal(response.statusCode, 201);
+  });
+
+  it('Should let you list services', async function(){
+    let response = await API.service.list();
+    assert.equal(response.length, 2);
   });
 
   it('Should let you remove acl integration test containers', async function(){
