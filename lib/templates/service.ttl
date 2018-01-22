@@ -3,8 +3,9 @@
 @prefix fin: <http://library.ucdavis.edu/fin-server#> .
 
 <>
-  dc:title  "{{name}}" ;
+  dc:title  "{{title}}" ;
   dc:description  "{{description}}" ;
+  dc:identifier   "{{id}}" ;
   rdf:type fin:Service ;
   rdf:type fin:{{type}} ;
   {{payload}}

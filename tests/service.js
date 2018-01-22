@@ -63,6 +63,24 @@ describe('Service Tests', function() {
     assert.equal(response.length, 2);
   });
 
+  it('Should not leat you create service w/ same name', async function(){
+    try {
+      let {response} = await API.service.create({
+        name : 'Test Frame Service',
+        description : 'This is a test of a service',
+        type : API.service.TYPES.FRAME,
+        frame : {
+          foo : 'bar',
+          baz : { another: 'thing', cool: 123}
+        }
+      });
+      assert.equal(true, false);
+    } catch(e) {
+      assert.equal(typeof e, 'object');
+    }
+  });
+
+
   it('Should let you remove acl integration test containers', async function(){
     await containerUtils.cleanTests();
   });
