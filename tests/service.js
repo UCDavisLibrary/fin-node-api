@@ -80,6 +80,16 @@ describe('Service Tests', function() {
     }
   });
 
+  it('Should create a webhook service ', async function(){
+    let {response} = await API.service.create({
+      name : 'Test Webhook Service',
+      description : 'This is a test of a webhook service',
+      type : API.service.TYPES.WEBHOOK,
+      webhook : 'http://localhost:3333/foo'
+    });
+    assert.equal(response.statusCode, 201);
+  });
+
 
   it('Should let you remove acl integration test containers', async function(){
     await containerUtils.cleanTests();
