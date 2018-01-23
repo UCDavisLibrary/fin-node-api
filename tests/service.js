@@ -26,7 +26,8 @@ describe('Service Tests', function() {
 
   it('Should create a proxy service ', async function(){
     var {response} = await API.service.create({
-      name : 'Test Proxy Service',
+      id : 'test-proxy-service',
+      title : 'Test Proxy Service',
       description : 'This is a test of a service',
       type : API.service.TYPES.PROXY,
       urlTemplate : 'http://localhost:8080{{fcPath}}{{svcPath}}'
@@ -47,7 +48,8 @@ describe('Service Tests', function() {
 
   it('Should create a frame service ', async function(){
     let {response} = await API.service.create({
-      name : 'Test Frame Service',
+      id : 'frame-service',
+      title : 'Test Frame Service',
       description : 'This is a test of a service',
       type : API.service.TYPES.FRAME,
       frame : {
@@ -66,7 +68,8 @@ describe('Service Tests', function() {
   it('Should not leat you create service w/ same name', async function(){
     try {
       let {response} = await API.service.create({
-        name : 'Test Frame Service',
+        id : 'frame-service',
+        title : 'Test Frame Service',
         description : 'This is a test of a service',
         type : API.service.TYPES.FRAME,
         frame : {
@@ -82,7 +85,8 @@ describe('Service Tests', function() {
 
   it('Should create a webhook service ', async function(){
     let {response} = await API.service.create({
-      name : 'Test Webhook Service',
+      id : 'Test Webhook Service',
+      title : 'Test Webhook Service',
       description : 'This is a test of a webhook service',
       type : API.service.TYPES.WEBHOOK,
       webhook : 'http://localhost:3333/foo'
