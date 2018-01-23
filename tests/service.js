@@ -30,6 +30,7 @@ describe('Service Tests', function() {
       title : 'Test Proxy Service',
       description : 'This is a test of a service',
       type : API.service.TYPES.PROXY,
+      supportedType : 'http://fedora.info/definitions/v4/repository#Container',
       urlTemplate : 'http://localhost:8080{{fcPath}}{{svcPath}}'
     });
     assert.equal(response.statusCode, 201);
@@ -94,6 +95,14 @@ describe('Service Tests', function() {
     assert.equal(response.statusCode, 201);
   });
 
+  it('Should let you get a service', async function(){
+    let service = await API.service.get({
+      id : 'test-webhook-service',
+    });
+
+    assert.equal(service.title, 'Test Webhook Service');
+    assert.equal(service.type, API.service.TYPES.WEBHOOK);
+  });
 
   it('Should let you remove acl integration test containers', async function(){
     await containerUtils.cleanTests();
