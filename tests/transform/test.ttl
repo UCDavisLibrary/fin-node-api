@@ -1,0 +1,71 @@
+@prefix premis:  <http://www.loc.gov/premis/rdf/v1#> .
+@prefix test:  <info:fedora/test/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ns004:  <http://fedora.info/definitions/v4/webac#> .
+@prefix ns003:  <http://pcdm.org/models#> .
+@prefix ns002:  <http://purl.org/dc/terms/> .
+@prefix ns001:  <http://fin.library.ucdavis.edu/> .
+@prefix xsi:  <http://www.w3.org/2001/XMLSchema-instance> .
+@prefix ns007:  <http://library.ucdavis.edu/wine/> .
+@prefix xmlns:  <http://www.w3.org/2000/xmlns/> .
+@prefix ns006:  <http://www.wikidata.org/prop/direct/> .
+@prefix ns005:  <http://www.w3.org/ns/auth/acl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix fedora:  <http://fedora.info/definitions/v4/repository#> .
+@prefix xml:  <http://www.w3.org/XML/1998/namespace> .
+@prefix ebucore:  <http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#> .
+@prefix ldp:  <http://www.w3.org/ns/ldp#> .
+@prefix xs:  <http://www.w3.org/2001/XMLSchema> .
+@prefix fedoraconfig:  <http://fedora.info/definitions/v4/config#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix dc:  <http://purl.org/dc/elements/1.1/> .
+@prefix authz:  <http://fedora.info/definitions/v4/authorization#> .
+
+<http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/>
+        rdf:type               ns003:Collection ;
+        rdf:type               ns001:Service ;
+        rdf:type               ldp:DirectContainer ;
+        rdf:type               fedora:Container ;
+        rdf:type               fedora:Resource ;
+        fedora:lastModifiedBy  "quinn"^^<http://www.w3.org/2001/XMLSchema#string> ;
+        ns001:linkHint         <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.well-known/genid/eb/fa/1c/5a/ebfa1c5a-174f-455b-879c-c8d81edeef8e> ;
+        ns001:linkHint         <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.well-known/genid/a0/58/f0/4c/a058f04c-7b25-416e-a1f4-f5779ee1eed3> ;
+        ns002:publisher        <http://id.loc.gov/authorities/names/no2008108707> ;
+        dc:publisher           "University of California, Davis. General Library. Dept. of Special Collections"^^<http://www.w3.org/2001/XMLSchema#string> ;
+        dc:title               "Example Collections"^^<http://www.w3.org/2001/XMLSchema#string> ;
+        fedora:lastModified    "2018-01-19T15:52:05.978Z"^^<http://www.w3.org/2001/XMLSchema#dateTime> ;
+        ns002:created          "2017"^^<http://www.w3.org/2001/XMLSchema#string> ;
+        ns005:accessControl    <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.acl> ;
+        dc:description         "Example Collections demonstrating some best practices, and standard methods for the FIN server and client"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.well-known/genid/eb/fa/1c/5a/ebfa1c5a-174f-455b-879c-c8d81edeef8e>
+        rdf:type     ns001:LinkHint ;
+        rdf:type     fedora:Skolem ;
+        ns001:about  <http://id.loc.gov/authorities/names/no2008108707> ;
+        rdf:label    "University of California, Davis. General Library. Dept. of Special Collections"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.well-known/genid/a0/58/f0/4c/a058f04c-7b25-416e-a1f4-f5779ee1eed3>
+        rdf:type     ns001:LinkHint ;
+        rdf:type     fedora:Skolem ;
+        ns001:about  <http://id.worldcat.org/fast/1423689> ;
+        rdf:label    "Photographs"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/>
+        rdf:type                       ldp:RDFSource ;
+        rdf:type                       ldp:Container ;
+        fedora:writable                "false"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+        rdf:type                       fedora:RepositoryRoot ;
+        rdf:type                       fedora:Resource ;
+        rdf:type                       fedora:Container ;
+        ldp:contains                   <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.well-known> ;
+        ldp:contains                   <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.acl> ;
+        ldp:contains                   <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/user> ;
+        ldp:contains                   <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/collection> ;
+        ns003:hasMember                <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/collection/amerine-example> ;
+        ns003:hasMember                <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/collection/eastman-example> ;
+        ns003:hasMember                <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/collection/eastman> ;
+        ns001:hasUser                  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/user/jrmerz> ;
+        ns001:hasUser                  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/user/quinn> ;
+        ns001:hasUser                  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/user/xiaolili> ;
+        ns001:hasUser                  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/user/bob> ;
+        fedora:hasTransactionProvider  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/fcr:tx> .
