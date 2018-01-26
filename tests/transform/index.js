@@ -5,7 +5,9 @@ const fs = require('fs');
 
 const data = {
   turtle : fs.readFileSync(path.join(__dirname, 'test.ttl'), 'utf-8'),
-  jsonld : fs.readFileSync(path.join(__dirname, 'test.json'), 'utf-8')
+  turtle2 : fs.readFileSync(path.join(__dirname, 'test2.ttl'), 'utf-8'),
+  jsonld : fs.readFileSync(path.join(__dirname, 'test.json'), 'utf-8'),
+  sparqlDiff : fs.readFileSync(path.join(__dirname, 'diff.sparql'), 'utf-8')
 }
 
 describe('Turtle <-> JSON-LD transfroms tests', function() {
@@ -21,6 +23,11 @@ describe('Turtle <-> JSON-LD transfroms tests', function() {
     let turtle = await API.transform.jsonldToTurtle(data.jsonld);
 
     // console.log(turtle);
+  });
+
+  it('let you create sparql from two turtle files', async function(){
+    let sparql = await API.transform.diffToSparql(data.turtle, data.turtle2);
+    assert.equal(sparql, data.sparqlDiff)
   });
 
 });

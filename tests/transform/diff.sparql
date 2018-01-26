@@ -1,0 +1,9 @@
+INSERT {
+  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/> <http://purl.org/dc/elements/1.1/publisher> "University of California"^^http://www.w3.org/2001/XMLSchema#string
+  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/.well-known/genid/eb/fa/1c/5a/ebfa1c5a-174f-455b-879c-c8d81edeef8e> <http://purl.org/dc/elements/1.1/title> "A thing about a thing"^^http://www.w3.org/2001/XMLSchema#string
+}
+DELETE {
+  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/> <http://purl.org/dc/elements/1.1/publisher> "University of California, Davis. General Library. Dept. of Special Collections"^^http://www.w3.org/2001/XMLSchema#string
+  <http://dams-sandbox.library.ucdavis.edu/fcrepo/rest/> <http://purl.org/dc/elements/1.1/description> "Example Collections demonstrating some best practices, and standard methods for the FIN server and client"^^http://www.w3.org/2001/XMLSchema#string
+}
+WHERE {}
