@@ -9,10 +9,21 @@
 
 <dl>
 <dt><a href="#RDF_FORMATS">RDF_FORMATS</a> : <code>Object</code></dt>
-<dd><p>JSON_LD: application/ld+json<br />N_TRIPLES: application/n-triples<br />RDF_XML: application/rdf+xml<br />SPARQL_UPDATE: application/sparql-update<br />N3: text/n3<br />PLAIN: text/plain<br />TURTLE: text/turtle</p>
+<dd><p>JSON_LD: application/ld+json<br />
+N_TRIPLES: application/n-triples<br />
+RDF_XML: application/rdf+xml<br />
+SPARQL_UPDATE: application/sparql-update<br />
+N3: text/n3<br />
+PLAIN: text/plain<br />
+TURTLE: text/turtle</p>
 </dd>
 <dt><a href="#FILE_EXTENSIONS">FILE_EXTENSIONS</a> : <code>Object</code></dt>
-<dd><p>.json: application/ld+json<br />.nt: application/n-triples<br />.xml: application/rdf+xml<br />.n3: text/n3<br />.txt: text/plain<br />.ttl: text/turtle</p>
+<dd><p>.json: application/ld+json<br />
+.nt: application/n-triples<br />
+.xml: application/rdf+xml<br />
+.n3: text/n3<br />
+.txt: text/plain<br />
+.ttl: text/turtle</p>
 </dd>
 <dt><a href="#GET_JSON_ACCEPT">GET_JSON_ACCEPT</a> : <code>Object</code></dt>
 <dd><p>Optional Accept HTTP header values for GET request of Content-Type=application/ld+json</p>
@@ -21,7 +32,17 @@
 <dd><p>Optional Prefer HTTP header values for GET request</p>
 </dd>
 <dt><a href="#PUT_PEFER">PUT_PEFER</a> : <code>Object</code></dt>
-<dd><p>Optional Prefer HTTP header values for PUT request.Allows replacing the properties of a container without having to provide all of the server-managed triples.</p>
+<dd><p>Optional Prefer HTTP header values for PUT request.
+Allows replacing the properties of a container without having to provide all of the server-managed triples.</p>
+</dd>
+<dt><a href="#acl">acl</a> : <code>class</code></dt>
+<dd><p>set of functions for interacting with fin webac.</p>
+</dd>
+<dt><a href="#service">service</a> : <code>class</code></dt>
+<dd><p>set of functions for interacting with fin services.</p>
+</dd>
+<dt><a href="#transform">transform</a> : <code>Object</code></dt>
+<dd><p>util functions for turtle, json-ld and sparql transforms</p>
 </dd>
 </dl>
 
@@ -85,6 +106,10 @@ with a resource with the triples provided in the request body.</p>
 <dd></dd>
 <dt><a href="#deleteVersion">deleteVersion(options)</a> ⇒ <code>Promise</code></dt>
 <dd></dd>
+<dt><a href="#parseLinkHeader">parseLinkHeader(link)</a> ⇒ <code>Object</code></dt>
+<dd><p>helper for parsing HTTP link header.  many utils for this
+do not assume multiple rel&#39;s of the same value which fedora returns.</p>
+</dd>
 </dl>
 
 <a name="FinApi"></a>
@@ -105,13 +130,24 @@ where
 <a name="RDF_FORMATS"></a>
 
 ## RDF_FORMATS : <code>Object</code>
-JSON_LD: application/ld+json<br />N_TRIPLES: application/n-triples<br />RDF_XML: application/rdf+xml<br />SPARQL_UPDATE: application/sparql-update<br />N3: text/n3<br />PLAIN: text/plain<br />TURTLE: text/turtle
+JSON_LD: application/ld+json<br />
+N_TRIPLES: application/n-triples<br />
+RDF_XML: application/rdf+xml<br />
+SPARQL_UPDATE: application/sparql-update<br />
+N3: text/n3<br />
+PLAIN: text/plain<br />
+TURTLE: text/turtle
 
 **Kind**: global variable  
 <a name="FILE_EXTENSIONS"></a>
 
 ## FILE_EXTENSIONS : <code>Object</code>
-.json: application/ld+json<br />.nt: application/n-triples<br />.xml: application/rdf+xml<br />.n3: text/n3<br />.txt: text/plain<br />.ttl: text/turtle
+.json: application/ld+json<br />
+.nt: application/n-triples<br />
+.xml: application/rdf+xml<br />
+.n3: text/n3<br />
+.txt: text/plain<br />
+.ttl: text/turtle
 
 **Kind**: global variable  
 <a name="GET_JSON_ACCEPT"></a>
@@ -129,7 +165,26 @@ Optional Prefer HTTP header values for GET request
 <a name="PUT_PEFER"></a>
 
 ## PUT_PEFER : <code>Object</code>
-Optional Prefer HTTP header values for PUT request.Allows replacing the properties of a container without having to provide all of the server-managed triples.
+Optional Prefer HTTP header values for PUT request.
+Allows replacing the properties of a container without having to provide all of the server-managed triples.
+
+**Kind**: global variable  
+<a name="acl"></a>
+
+## acl : <code>class</code>
+set of functions for interacting with fin webac.
+
+**Kind**: global variable  
+<a name="service"></a>
+
+## service : <code>class</code>
+set of functions for interacting with fin services.
+
+**Kind**: global variable  
+<a name="transform"></a>
+
+## transform : <code>Object</code>
+util functions for turtle, json-ld and sparql transforms
 
 **Kind**: global variable  
 <a name="setConfig"></a>
@@ -433,4 +488,16 @@ Get a current version
 | options.headers | <code>Object</code> | resource headers, key/value pairs |
 | options.host | <code>String</code> | (optional) override config.host |
 | options.fcBasePath | <code>String</code> | (optional) override config.fcBasePath |
+
+<a name="parseLinkHeader"></a>
+
+## parseLinkHeader(link) ⇒ <code>Object</code>
+helper for parsing HTTP link header.  many utils for this
+do not assume multiple rel's of the same value which fedora returns.
+
+**Kind**: global function  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| link | <code>String</code> | HTTP link header |
 
