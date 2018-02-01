@@ -118,6 +118,7 @@ describe('Service Tests', function() {
       id : 'test-external-service'
     });
     assert.equal(service.id, 'test-external-service');
+    assert.equal(service.urlTemplate, 'http://my.editor.org/finurl={{URL}}&token={{token}}');
   });
 
   it('Should let you remove acl integration test containers', async function(){
