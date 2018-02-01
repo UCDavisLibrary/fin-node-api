@@ -27,7 +27,7 @@ describe('Turtle <-> JSON-LD transfroms tests', function() {
 
   it('let you create sparql from two turtle files', async function(){
     let sparql = await API.transform.diffToSparql(data.turtle, data.turtle2);
-    assert.equal(sparql, data.sparqlDiff)
+    assert.equal(sparql, data.sparqlDiff);
   });
 
 });

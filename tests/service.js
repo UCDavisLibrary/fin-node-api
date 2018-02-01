@@ -104,6 +104,22 @@ describe('Service Tests', function() {
     assert.equal(service.type, API.service.TYPES.WEBHOOK);
   });
 
+  it('Should create a external service ', async function(){
+    var {response} = await API.service.create({
+      id : 'test-external-service',
+      title : 'Test External Service',
+      description : 'This is a test of a external service',
+      type : API.service.TYPES.EXTERNAL,
+      urlTemplate : 'http://my.editor.org/finurl={{URL}}&token={{token}}'
+    });
+    assert.equal(response.statusCode, 201);
+
+    var service = await API.service.get({
+      id : 'test-external-service'
+    });
+    assert.equal(service.id, 'test-external-service');
+  });
+
   it('Should let you remove acl integration test containers', async function(){
     await containerUtils.cleanTests();
   });
