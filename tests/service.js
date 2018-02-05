@@ -121,6 +121,24 @@ describe('Service Tests', function() {
     assert.equal(service.urlTemplate, 'http://my.editor.org/finurl={{URL}}&token={{token}}');
   });
 
+  it('Should create a authentication service ', async function(){
+    var {response} = await API.service.create({
+      id : 'test-authentication-service',
+      title : 'Test Authentication Service',
+      description : 'This is a test of a authentication service',
+      type : API.service.TYPES.AUTHENTICATION,
+      url : 'http://cas:8000'
+    });
+    assert.equal(response.statusCode, 201);
+
+    var service = await API.service.get({
+      id : 'test-authentication-service'
+    });
+    assert.equal(service.id, 'test-authentication-service');
+    assert.equal(service.url, 'http://cas:8000');
+    assert.equal(service.type, API.service.TYPES.AUTHENTICATION);
+  });
+
   it('Should let you remove acl integration test containers', async function(){
     await containerUtils.cleanTests();
   });
