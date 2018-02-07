@@ -139,6 +139,24 @@ describe('Service Tests', function() {
     assert.equal(service.type, API.service.TYPES.AUTHENTICATION);
   });
 
+  it('Should create a client service ', async function(){
+    var {response} = await API.service.create({
+      id : 'test-client-service',
+      title : 'Test Client Service',
+      description : 'This is a test of a client service',
+      type : API.service.TYPES.CLIENT,
+      url : 'http://ui-client:8000'
+    });
+    assert.equal(response.statusCode, 201);
+
+    var service = await API.service.get({
+      id : 'test-client-service'
+    });
+    assert.equal(service.id, 'test-client-service');
+    assert.equal(service.url, 'http://ui-client:8000');
+    assert.equal(service.type, API.service.TYPES.CLIENT);
+  });
+
   it('Should let you remove acl integration test containers', async function(){
     await containerUtils.cleanTests();
   });
