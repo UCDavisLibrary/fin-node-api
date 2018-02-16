@@ -4,7 +4,6 @@ const jwt = require('./utils/jwt');
 const {ADMIN, ALICE, BOB} = jwt.createUsers();
 const containerUtils = require('./utils/containerUtils');
 
-global.HOST = 'http://localhost:3000';
 API.setConfig({host: HOST});
 
 describe('Service Tests', function() {
