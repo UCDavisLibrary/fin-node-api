@@ -22,5 +22,11 @@ module.exports = {
     const ALICE = this.mint('alice');
     const BOB = this.mint('bob');
     return {ADMIN, ALICE, BOB};
+  },
+  verify(token, secret) {
+    return jwt.verify(token, secret);
+  },
+  getSecret() {
+    return secrets.jwt.secret;
   }
 }

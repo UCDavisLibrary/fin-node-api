@@ -4,6 +4,7 @@ const jwt = require('./utils/jwt');
 const {ADMIN, ALICE, BOB} = jwt.createUsers();
 const containerUtils = require('./utils/containerUtils');
 
+global.HOST = 'http://localhost:3000';
 API.setConfig({host: HOST});
 
 describe('Service Tests', function() {
@@ -156,6 +157,71 @@ describe('Service Tests', function() {
     assert.equal(service.url, 'http://ui-client:8000');
     assert.equal(service.type, API.service.TYPES.CLIENT);
   });
+
+  it('Should let the services register', function(next) {
+    setTimeout(() => next(), 500);
+  })
+
+  it('Should let you get all registered services', async function() {
+    let services = await API.service.list();
+
+    assert.notEqual(services.find(service => service.id === 'test-proxy-service'), undefined);
+    assert.notEqual(services.find(service => service.id === 'test-client-service'), undefined);
+    assert.notEqual(services.find(service => service.id === 'test-authentication-service'), undefined);
+    assert.notEqual(services.find(service => service.id === 'test-webhook-service'), undefined);
+  });
+  
+  it('Should set a service secret', async function(){
+    let {response} = await API.service.setSecret({
+      id : 'test-proxy-service',
+      secret : 'foobar'
+    });
+
+    assert.equal(response.statusCode, 201);
+  });
+
+  it('Should verify a service secret', async function() {
+    let {response} = await API.service.verifySecret({
+      id : 'test-proxy-service'
+    });
+    
+    assert.equal(response.statusCode, 200);
+    
+    let signature = response.headers['x-fin-service-signature'];
+    try {
+      let payload = jwt.verify(signature, 'foobar');
+      assert.equal(payload.service, 'test-proxy-service');
+      assert.equal(payload.type, 'ProxyService');
+      assert.equal(payload.signer, 'test-proxy-service');
+    } catch(e) {
+      assert.equal(null, e);
+    }
+  });
+
+  it('Should remove a service secret', async function(){
+    let {response} = await API.service.deleteSecret({
+      id : 'test-proxy-service'
+    });
+
+    assert.equal(response.statusCode, 204);
+  });
+
+  it('Should verify a service secret using fin secret', async function(){
+    let {response} = await API.service.verifySecret({
+      id : 'test-proxy-service'
+    });
+
+    let signature = response.headers['x-fin-service-signature'];
+    try {
+      let payload = jwt.verify(signature, jwt.getSecret());
+      assert.equal(payload.service, 'test-proxy-service');
+      assert.equal(payload.type, 'ProxyService');
+      assert.equal(payload.signer, 'fin');
+    } catch(e) {
+      assert.equal(null, e);
+    }
+  });
+
 
   it('Should let you remove acl integration test containers', async function(){
     await containerUtils.cleanTests();
