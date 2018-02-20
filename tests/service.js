@@ -90,7 +90,7 @@ describe('Service Tests', function() {
       title : 'Test Webhook Service',
       description : 'This is a test of a webhook service',
       type : API.service.TYPES.WEBHOOK,
-      webhook : 'http://localhost:3333/foo'
+      url : 'http://localhost:3333/foo'
     });
     assert.equal(response.statusCode, 201);
   });

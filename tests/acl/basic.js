@@ -1,5 +1,4 @@
 const assert = require('assert');
-const parseLinkHeader = require('parse-link-header');
 const API = require('../..');
 const jwt = require('../utils/jwt');
 const {ADMIN, ALICE, BOB} = jwt.createUsers();
