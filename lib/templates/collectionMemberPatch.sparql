@@ -1,7 +1,0 @@
-PREFIX webacl: <http://www.w3.org/ns/auth/acl#>
-
-DELETE { }
-INSERT { 
-  <> webacl:accessControl <{{path}}>
-}
-WHERE { }
