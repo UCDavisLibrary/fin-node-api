@@ -6,7 +6,6 @@ const containerUtils = require('../utils/containerUtils');
 const fs = require('fs');
 const path = require('path');
 
-global.HOST = 'http://localhost:3000';
 API.setConfig({host: HOST});
 
 describe('Collection Tests', function() {
@@ -46,6 +45,14 @@ describe('Collection Tests', function() {
     let {response} = await API.collection.deleteMember({
       id : 'earth-rise',
       collectionId : 'test-collection'
+    });
+
+    assert.equal(response.statusCode, 204);
+  });
+
+  it('Should let you delete a collection', async function(){
+    let {response} = await API.collection.delete({
+      id : 'test-collection'
     });
 
     assert.equal(response.statusCode, 204);
