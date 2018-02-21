@@ -43,7 +43,7 @@ describe('ACL - Multiple ACL test', function() {
       label: 'Secondary ACL'
     });
 
-    assert.equal(response.statusCode, 204);
+    assert.equal(response.statusCode, 201);
   });
 
 

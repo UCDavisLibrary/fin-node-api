@@ -1,0 +1,7 @@
+@prefix dc:  <http://purl.org/dc/elements/1.1/> .
+
+<>
+  dc:title       "A Test Collection";
+  dc:publisher   "University of California, Davis. General Library. Dept. of Special Collections"^^<http://www.w3.org/2001/XMLSchema#string> ;
+  dc:subject     "Photographs", "Testing";
+  dc:description "This is a test, this is only a test" .

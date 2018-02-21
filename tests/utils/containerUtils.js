@@ -76,6 +76,12 @@ module.exports = {
   cleanTests: async function() {
     API.setConfig({jwt: USERS.ADMIN});
 
+    var response = await API.head({
+      path : TEST_CONTAINER_ROOT,
+      host : HOST
+    });
+    if( response.response.statusCode === 404 ) return;
+
     // remove integration test containers
     response = await API.delete({
       path : TEST_CONTAINER_ROOT,

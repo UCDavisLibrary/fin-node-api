@@ -19,7 +19,7 @@ describe('ACL - Basic Tests', function() {
         path: containerUtils.TEST_CONTAINER_ROOT
       });
 
-      assert.equal(response.response.statusCode, 204);
+      assert.equal(response.response.statusCode, 201);
     } catch(e) {
       assert.equal(e, null);
     }
