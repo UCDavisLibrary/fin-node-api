@@ -1,0 +1,8 @@
+@prefix premis:  <http://www.loc.gov/premis/rdf/v1#> .
+@prefix test:  <info:fedora/test/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc:  <http://purl.org/dc/elements/1.1/> .
+
+<>
+  dc:title "foo" ;
+  dc:description "bar" .

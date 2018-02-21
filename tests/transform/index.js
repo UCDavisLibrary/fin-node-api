@@ -7,7 +7,8 @@ const data = {
   turtle : fs.readFileSync(path.join(__dirname, 'test.ttl'), 'utf-8'),
   turtle2 : fs.readFileSync(path.join(__dirname, 'test2.ttl'), 'utf-8'),
   jsonld : fs.readFileSync(path.join(__dirname, 'test.json'), 'utf-8'),
-  sparqlDiff : fs.readFileSync(path.join(__dirname, 'diff.sparql'), 'utf-8')
+  sparqlDiff : fs.readFileSync(path.join(__dirname, 'diff.sparql'), 'utf-8'),
+  emptyId : fs.readFileSync(path.join(__dirname, 'empty.ttl'), 'utf-8')
 }
 
 describe('Turtle <-> JSON-LD transfroms tests', function() {
@@ -21,13 +22,19 @@ describe('Turtle <-> JSON-LD transfroms tests', function() {
 
   it('let you transform json-ld to turtle', async function(){
     let turtle = await API.transform.jsonldToTurtle(data.jsonld);
-
-    // console.log(turtle);
+    assert.notEqual(turtle, '');
   });
 
   it('let you create sparql from two turtle files', async function(){
     let sparql = await API.transform.diffToSparql(data.turtle, data.turtle2);
     assert.equal(sparql, data.sparqlDiff);
+  });
+
+  it('let you transform data with empty id', async function(){
+    let jsonld = await API.transform.turtleToJsonLd(data.emptyId);
+    assert.equal(jsonld.length, 1);
+    let turtle = await API.transform.jsonldToTurtle(jsonld);
+    assert.notEqual(turtle, '');
   });
 
 });
