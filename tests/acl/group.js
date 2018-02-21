@@ -4,7 +4,6 @@ const jwt = require('../utils/jwt');
 const {ADMIN, ALICE, BOB} = jwt.createUsers();
 const containerUtils = require('../utils/containerUtils');
 
-
 API.setConfig({host: HOST});
 
 describe('ACL - Group Tests', function() {
@@ -25,7 +24,7 @@ describe('ACL - Group Tests', function() {
     let {response} = await API.acl.addGroup({
       path : containerUtils.TEST_CONTAINER_ROOT+'/.acl',
       name : 'foo',
-      agents : ['alice', 'bob']
+      agents : ['bob']
     });
 
     assert.equal(response.statusCode, 201);
@@ -43,7 +42,7 @@ describe('ACL - Group Tests', function() {
     assert.equal(response.statusCode, 201);
   });
 
-  it('should let bob access via group premissions', async function(){
+  it('should let bob access via group permissions', async function(){
 
     API.setConfig({jwt: BOB});
     
@@ -53,6 +52,48 @@ describe('ACL - Group Tests', function() {
     response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child2'});
     assert.equal(response.response.statusCode, 403);
 
+  });
+
+  it('should let you add alice to group', async function(){
+    API.setConfig({jwt: ADMIN});
+
+    let {response} = await API.acl.modifyGroupAgents({
+      path : containerUtils.TEST_CONTAINER_ROOT+'/.acl/foo',
+      addAgents : ['alice']
+    });
+
+    assert.equal(response.statusCode, 204);
+  });
+
+  it('should let alice access via group permissions', async function(){
+    API.setConfig({jwt: ALICE});
+    
+    response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
+    assert.equal(response.response.statusCode, 200);
+
+    response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child2'});
+    assert.equal(response.response.statusCode, 403);
+  });
+
+  it('should let you remove alice from group', async function(){
+    API.setConfig({jwt: ADMIN});
+
+    let {response} = await API.acl.modifyGroupAgents({
+      path : containerUtils.TEST_CONTAINER_ROOT+'/.acl/foo',
+      removeAgents : 'alice'
+    });
+
+    assert.equal(response.statusCode, 204);
+  });
+
+  it('should not let alice access', async function(){
+    API.setConfig({jwt: ALICE});
+    
+    response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
+    assert.equal(response.response.statusCode, 403);
+
+    response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child2'});
+    assert.equal(response.response.statusCode, 403);
   });
 
   it('Should let you remove acl integration test containers', async function(){
