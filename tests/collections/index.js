@@ -6,6 +6,7 @@ const containerUtils = require('../utils/containerUtils');
 const fs = require('fs');
 const path = require('path');
 
+global.HOST = 'http://localhost:3000';
 API.setConfig({host: HOST});
 
 describe('Collection Tests', function() {
@@ -35,8 +36,7 @@ describe('Collection Tests', function() {
     let response = await API.collection.addMember({
       id : 'earth-rise',
       collectionId : 'test-collection',
-      file : path.join(__dirname, 'earthrise.jpg'),
-      metadataFile : path.join(__dirname, 'earthrise.jpg.ttl')
+      file : path.join(__dirname, 'earthrise.jpg')
     });
 
     assert.equal(response.statusCode, 201);
