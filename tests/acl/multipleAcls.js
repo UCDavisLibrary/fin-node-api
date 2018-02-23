@@ -15,7 +15,9 @@ describe('ACL - Multiple ACL test', function() {
   it('should let you prepare for testing', async function(){
     API.setConfig({jwt: ADMIN});
     await containerUtils.createBasicSetup();
-    await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    
+    let response = await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    assert.equal(response.error, null);
   });
 
   it('should allow you give alice read access to child1 and let alice access', async function(){
@@ -26,24 +28,27 @@ describe('ACL - Multiple ACL test', function() {
       agent : 'alice',
       modes : [API.acl.MODES.READ]
     });
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
 
     API.setConfig({jwt: ALICE});
     response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
-    assert.equal(response.response.statusCode, 200);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 200);
   });
 
 
   it('should allow you to make a secondary ACL', async function(){
     API.setConfig({jwt: ADMIN});
 
-    let {response} = await API.acl.create({
+    let response = await API.acl.create({
       path: containerUtils.TEST_CONTAINER_ROOT,
       aclContainerName : '.acl2',
       label: 'Secondary ACL'
     });
 
-    assert.equal(response.statusCode, 201);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
   });
 
 
@@ -51,10 +56,12 @@ describe('ACL - Multiple ACL test', function() {
     API.setConfig({jwt: ALICE});
 
     let response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
-    assert.equal(response.response.statusCode, 200);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 200);
 
     response = await API.acl.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
-    assert.deepEqual(response, [ '/integration-test/.acl', '/integration-test/.acl2' ]);
+    assert.equal(response.error, null);
+    assert.deepEqual(response.data, [ '/integration-test/.acl', '/integration-test/.acl2' ]);
   });
 
   it('BUG should allow you give bob read access to child1 via acl2 but does not allow him to read', async function(){
@@ -66,11 +73,13 @@ describe('ACL - Multiple ACL test', function() {
       modes : [API.acl.MODES.READ],
       aclPath : containerUtils.TEST_CONTAINER_ROOT+'/.acl2'
     });
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
 
     API.setConfig({jwt: BOB});
     response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
-    assert.equal(response.response.statusCode, 403);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 403);
   });
 
   it('BUG should allow you give bob read access to child1 via acl2 but does not allow him to read', async function(){
@@ -80,17 +89,20 @@ describe('ACL - Multiple ACL test', function() {
       path: containerUtils.TEST_CONTAINER_ROOT+'/.acl',
       permanent : true
     });
-    assert.equal(response.response.statusCode, 204);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
 
     API.setConfig({jwt: BOB});
     response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
-    assert.equal(response.response.statusCode, 200);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 200);
   });
 
   it('Should cleanup for fresh test', async function() {
     API.setConfig({jwt: ADMIN});
     await containerUtils.createBasicSetup();
-    await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    let response = await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    assert.equal(response.error, null);
   });
 
   it('Should make a second nested acl at child4, allow bob to read child1 and not child5', async function() {
@@ -100,21 +112,26 @@ describe('ACL - Multiple ACL test', function() {
       agent : 'bob',
       modes : [API.acl.MODES.READ],
     });
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
 
-    await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT+'/child1/child4'});
-    assert.equal(response.response.statusCode, 201);
+    response = await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT+'/child1/child4'});
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
 
     API.setConfig({jwt: BOB});
     response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1'});
-    assert.equal(response.response.statusCode, 200);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 200);
 
     response = await API.get({path: containerUtils.TEST_CONTAINER_ROOT+'/child1/child4/child5'});
-    assert.equal(response.response.statusCode, 403);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 403);
   });
 
   it('Should let you remove acl integration test containers', async function(){
-    await containerUtils.cleanTests();
+    let response = await containerUtils.cleanTests();
+    assert.equal(response.error, null);
   });
 
 });

@@ -15,31 +15,37 @@ describe('ACL - Write Test', function() {
   it('should let you prepare for testing', async function(){
     API.setConfig({jwt: ADMIN});
     await containerUtils.createBasicSetup();
-    await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    
+    var response = await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    assert.equal(response.error, null);
   });
 
   it('should allow alice to write to root but not read', async function(){
     API.setConfig({jwt: ADMIN});
 
-    let {response} = await API.acl.add({
+    let response = await API.acl.add({
       path : containerUtils.TEST_CONTAINER_ROOT,
       agent : 'alice',
       modes : [ API.acl.MODES.WRITE]
     });
-    assert.equal(response.statusCode, 201);
+
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
   });
 
   it('does not allow alice to update child1', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1', 'alice');
-    assert.equal(response.statusCode, 403);
+    let response = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1', 'alice');
+    
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 403);
   });
 
   it('does not allow alice to add child to child1', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await API.post({
+    let response = await API.post({
       path : containerUtils.TEST_CONTAINER_ROOT + '/child1',
       headers : {
         'Content-Type' : API.RDF_FORMATS.TURTLE,
@@ -48,31 +54,36 @@ describe('ACL - Write Test', function() {
       content : containerUtils.getChild()
     });
 
-    assert.equal(response.statusCode, 403);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 403);
   });
 
   it('should allow alice to read/write to root', async function(){
     API.setConfig({jwt: ADMIN});
 
-    let {response} = await API.acl.add({
+    let response = await API.acl.add({
       path : containerUtils.TEST_CONTAINER_ROOT,
       agent : 'alice',
       modes : [API.acl.MODES.READ]
     });
-    assert.equal(response.statusCode, 201);
+
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
   });
 
   it('allows alice to update child1', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1', 'alice');
-    assert.equal(response.statusCode, 204);
+    let response = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1', 'alice');
+    
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('allows alice to add child to child1', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await API.post({
+    let response = await API.post({
       path : containerUtils.TEST_CONTAINER_ROOT + '/child1',
       headers : {
         'Content-Type' : API.RDF_FORMATS.TURTLE,
@@ -81,37 +92,44 @@ describe('ACL - Write Test', function() {
       content : containerUtils.getChild()
     });
 
-    assert.equal(response.statusCode, 201);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
   });
 
   it('should cleanup, prepare for more testing', async function(){
     API.setConfig({jwt: ADMIN});
     await containerUtils.createBasicSetup();
-    await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    
+    let response = await API.acl.create({path: containerUtils.TEST_CONTAINER_ROOT});
+    assert.equal(response.error, null);
   });
 
   it('should allow alice to write to child1', async function(){
     API.setConfig({jwt: ADMIN});
 
-    let {response} = await API.acl.add({
+    let response = await API.acl.add({
       path : containerUtils.TEST_CONTAINER_ROOT+'/child1',
       agent : 'alice',
       modes : [ API.acl.MODES.WRITE, API.acl.MODES.READ ]
     });
-    assert.equal(response.statusCode, 201);
+
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
   });
 
   it('does not allow alice to update child1/child4', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1/child4', 'alice');
-    assert.equal(response.statusCode, 403);
+    let response = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1/child4', 'alice');
+    
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 403);
   });
 
-  it('does not  allows alice to add child to child1/child4', async function(){
+  it('does not allows alice to add child to child1/child4', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await API.post({
+    let response = await API.post({
       path : containerUtils.TEST_CONTAINER_ROOT + '/child1/child4',
       headers : {
         'Content-Type' : API.RDF_FORMATS.TURTLE,
@@ -120,21 +138,24 @@ describe('ACL - Write Test', function() {
       content : containerUtils.getChild()
     });
 
-    assert.equal(response.statusCode, 403);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 403);
   });
 
 
   it('allows alice to update child1', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1', 'alice');
-    assert.equal(response.statusCode, 204);
+    let response = await containerUtils.updateTest(containerUtils.TEST_CONTAINER_ROOT+'/child1', 'alice');
+    
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('allows alice to add child to child1', async function(){
     API.setConfig({jwt: ALICE});
 
-    let {response} = await API.post({
+    let response = await API.post({
       path : containerUtils.TEST_CONTAINER_ROOT + '/child1',
       headers : {
         'Content-Type' : API.RDF_FORMATS.TURTLE,
@@ -143,11 +164,13 @@ describe('ACL - Write Test', function() {
       content : containerUtils.getChild()
     });
 
-    assert.equal(response.statusCode, 201);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 201);
   });
 
   it('Should let you remove acl integration test containers', async function(){
-    await containerUtils.cleanTests();
+    let response = await containerUtils.cleanTests();
+    assert.equal(response.error, null);
   });
 
 });

@@ -13,7 +13,10 @@ describe('Collection Tests', function() {
   it('Should let you prepare for tests', async function(){
     API.setConfig({jwt: ADMIN});
     await containerUtils.cleanTests(); // clean any tests
-    await containerUtils.createContainer(); // create root testing container
+    
+    let response = await containerUtils.createContainer(); // create root testing container
+    assert.equal(response.error, null);
+    
     API.collection.testing(); // change the root url
   });
 
@@ -22,8 +25,9 @@ describe('Collection Tests', function() {
       id : 'test-collection',
       file : path.join(__dirname, 'collection.ttl')
     });
+    assert.equal(response.error, null);
 
-    assert.deepEqual(response, { 
+    assert.deepEqual(response.data, { 
       path: '/integration-test/collection/test-collection',
       members: '/integration-test/collection/test-collection/members',
       groups: '/integration-test/collection/test-collection/groups',
@@ -38,28 +42,32 @@ describe('Collection Tests', function() {
       file : path.join(__dirname, 'earthrise.jpg')
     });
 
-    assert.equal(response.statusCode, 201);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you delete a collection member', async function(){
-    let {response} = await API.collection.deleteMember({
+    let response = await API.collection.deleteMember({
       id : 'earth-rise',
       collectionId : 'test-collection'
     });
 
-    assert.equal(response.statusCode, 204);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you delete a collection', async function(){
-    let {response} = await API.collection.delete({
+    let response = await API.collection.delete({
       id : 'test-collection'
     });
 
-    assert.equal(response.statusCode, 204);
+    assert.equal(response.error, null);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you remove collection integration test containers', async function(){
-    await containerUtils.cleanTests();
+    let response = await containerUtils.cleanTests();
+    assert.equal(response.error, null);
   });
 
 

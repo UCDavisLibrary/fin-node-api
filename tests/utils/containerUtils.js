@@ -44,33 +44,33 @@ module.exports = {
     API.setConfig({jwt: USERS.ADMIN});
 
     let response = await API.get({path: TEST_CONTAINER_ROOT});
-    if( response.response.statusCode === 200 ) {
+    if( response.checkStatus(200) ) {
       await this.cleanTests();
     }
 
     // create parent/child containers for setting access
     response = await this.createContainer();
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.last.statusCode, 201);
   
     response = await this.createContainer('child1');
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.last.statusCode, 201);
   
     // direct container
     // response = await this.createContainer('/child2', '/integration-test');
     response = await this.createContainer('child2');
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.last.statusCode, 201);
   
     response = await this.createContainer('child2/child3');
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.last.statusCode, 201);
 
     response = await this.createContainer('child1/child4');
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.last.statusCode, 201);
 
     response = await this.createContainer('child1/child4/child5');
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.last.statusCode, 201);
 
     response = await this.createContainer('child1/child4/child5/child6');
-    assert.equal(response.response.statusCode, 201);
+    assert.equal(response.last.statusCode, 201);
   },
 
   cleanTests: async function() {
@@ -80,22 +80,18 @@ module.exports = {
       path : TEST_CONTAINER_ROOT,
       host : HOST
     });
-    if( response.response.statusCode === 404 ) return;
+    if( response.last.statusCode === 404 ) return response;
 
     // remove integration test containers
     response = await API.delete({
       path : TEST_CONTAINER_ROOT,
-      host : HOST
+      host : HOST,
+      permanent : true
     });
-    assert.equal(response.response.statusCode, 204);
-  
-    response = await API.delete({
-      path : TEST_CONTAINER_ROOT + '/fcr:tombstone',
-      host : HOST
-    });
-    assert.equal(response.response.statusCode, 204);
+    assert.equal(response.last.statusCode, 204);
 
     count = 0;
+    return response;
   },
 
   createContainer: function(path = '', memberOf = '') {
