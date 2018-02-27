@@ -109,8 +109,8 @@ describe('Collection Tests', function() {
 
 
   it('Should let you delete a collection member', async function(){
-    let response = await API.collection.deleteMember({
-      id : 'earth-rise',
+    let response = await API.collection.deleteContainer({
+      id : 'items/space/media/images/PIA21340',
       collectionId : 'test-collection'
     });
 
