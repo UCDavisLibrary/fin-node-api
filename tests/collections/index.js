@@ -46,7 +46,7 @@ describe('Collection Tests', function() {
   });
 
   it('Should let you create a collection member', async function(){
-    let response = await API.collection.addItem({
+    let response = await API.collection.addResource({
       id : 'space',
       collectionId : 'test-collection',
       parentPath : 'items',
@@ -70,7 +70,7 @@ describe('Collection Tests', function() {
   });
 
   it('Should let you add main image to media relation', async function(){
-    let response = await API.collection.addItem({
+    let response = await API.collection.addResource({
       id : 'cover-art',
       collectionId : 'test-collection',
       parentPath : 'items/space/media',
@@ -84,7 +84,7 @@ describe('Collection Tests', function() {
 
 
   it('Should let you add images to media relation', async function(){
-    let response = await API.collection.addItem({
+    let response = await API.collection.addResource({
       id : 'images/rings',
       collectionId : 'test-collection',
       parentPath : 'items/space/media',
@@ -95,7 +95,7 @@ describe('Collection Tests', function() {
     assert.equal(response.error, null);
     assert.equal(response.last.statusCode, 201);
 
-    response = await API.collection.addItem({
+    response = await API.collection.addResource({
       id : 'images/PIA21340',
       collectionId : 'test-collection',
       parentPath : 'items/space/media',
@@ -109,7 +109,7 @@ describe('Collection Tests', function() {
 
 
   it('Should let you delete a collection member', async function(){
-    let response = await API.collection.deleteContainer({
+    let response = await API.collection.deleteResource({
       id : 'items/space/media/images/PIA21340',
       collectionId : 'test-collection'
     });
