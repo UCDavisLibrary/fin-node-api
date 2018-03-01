@@ -42,7 +42,7 @@ describe('Collection Tests', function() {
     });
 
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you create a collection member', async function(){
@@ -54,7 +54,7 @@ describe('Collection Tests', function() {
     });
 
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you create a media relation', async function(){
@@ -66,7 +66,7 @@ describe('Collection Tests', function() {
     });
 
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you add main image to media relation', async function(){
@@ -93,7 +93,7 @@ describe('Collection Tests', function() {
     });
 
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
 
     response = await API.collection.addResource({
       id : 'images/PIA21340',
@@ -104,9 +104,39 @@ describe('Collection Tests', function() {
     });
 
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
+
+  it('should let you set a property relation of exampleOfWork/workExample', async function() {
+    let response = await API.collection.createRelationProperties({
+      collectionId : 'test-collection',
+      dstPath : 'items/space/media/images/PIA21340',
+      dstProperty : 'http://schema.org/workExample',
+      srcProperty : 'http://schema.org/exampleOfWork'
+    });
+
+    let httpStack = response.httpStack.map(r => r.statusCode);
+    assert.deepEqual(httpStack, [200, 200, 201, 200, 204, 200, 204, 204]);
+
+    response = await API.get({
+      path : '/integration-test/collection/test-collection',
+      headers : {
+        Accept : API.RDF_FORMATS.JSON_LD
+      }
+    });
+    let json = JSON.parse(response.last.body)[0];
+    assert.equal(json['http://schema.org/exampleOfWork'][0]['@id'].indexOf('items/space/media/images/PIA21340') > -1, true);
+
+    response = await API.get({
+      path : '/integration-test/collection/test-collection/items/space/media/images/PIA21340/fcr:metadata',
+      headers : {
+        Accept : API.RDF_FORMATS.JSON_LD
+      }
+    });
+    json = JSON.parse(response.last.body)[0];
+    assert.equal(json['http://schema.org/workExample'][0]['@id'].indexOf('integration-test/collection/test-collection') > -1, true);
+  });
 
   it('Should let you delete a collection member', async function(){
     let response = await API.collection.deleteResource({
@@ -131,6 +161,4 @@ describe('Collection Tests', function() {
     let response = await containerUtils.cleanTests();
     assert.equal(response.error, null);
   });
-
-
 });

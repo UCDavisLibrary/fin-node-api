@@ -26,7 +26,7 @@ describe('ACL - Group Tests', function() {
     });
 
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('should let you add a group to acl', async function(){

@@ -4,3 +4,4 @@ require('./acl');
 require('./service');
 require('./collections');
 require('./transform');
+require('./jsonld');

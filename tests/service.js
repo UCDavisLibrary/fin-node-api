@@ -17,7 +17,7 @@ describe('Service Tests', function() {
   it('Should let you init service root', async function(){
     let response = await API.service.init();
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should should return 200 if root already exists', async function(){
@@ -36,7 +36,7 @@ describe('Service Tests', function() {
       urlTemplate : 'http://localhost:8080{{fcPath}}{{svcPath}}'
     });
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
 
     var response = await API.get({
       path : '/integration-test/.services/test-proxy-service',
@@ -63,7 +63,7 @@ describe('Service Tests', function() {
       }
     });
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you list services', async function(){
@@ -95,7 +95,7 @@ describe('Service Tests', function() {
       url : 'http://localhost:3333/foo'
     });
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
   });
 
   it('Should let you get a service', async function(){
@@ -119,7 +119,7 @@ describe('Service Tests', function() {
       urlTemplate : 'http://my.editor.org/finurl={{URL}}&token={{token}}'
     });
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
 
     response = await API.service.get({
       id : 'test-external-service'
@@ -141,7 +141,7 @@ describe('Service Tests', function() {
       url : 'http://cas:8000'
     });
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
 
     var response = await API.service.get({
       id : 'test-authentication-service'
@@ -164,7 +164,7 @@ describe('Service Tests', function() {
       url : 'http://ui-client:8000'
     });
     assert.equal(response.error, null);
-    assert.equal(response.last.statusCode, 201);
+    assert.equal(response.last.statusCode, 204);
 
     response = await API.service.get({
       id : 'test-client-service'
