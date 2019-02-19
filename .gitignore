@@ -1,2 +1,5 @@
 node_modules
 secrets.json
+lib/io/test
+lib/io/test.js
+.DS_Store
