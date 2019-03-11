@@ -1,6 +1,6 @@
 {
   "name": "@ucd-lib/fin-node-api",
-  "version": "0.10.1",
+  "version": "0.10.3",
   "description": "NodeJS API for interacting with the FIN Fedora instance",
   "main": "index.js",
   "directories": {
@@ -26,6 +26,7 @@
     "ignore": "^5.0.5",
     "js-yaml": "^3.12.2",
     "jsonld": "^0.4.12",
+    "mime": "^2.4.0",
     "n3": "^0.11.2",
     "request": "^2.88.0",
     "uuid": "^3.2.1"
