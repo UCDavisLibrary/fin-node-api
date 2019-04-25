@@ -1,6 +1,6 @@
 {
   "name": "@ucd-lib/fin-node-api",
-  "version": "0.10.9",
+  "version": "0.10.10",
   "description": "NodeJS API for interacting with the FIN Fedora instance",
   "main": "index.js",
   "directories": {
